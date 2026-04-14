@@ -143,7 +143,6 @@ const StreakBetting = () => {
                         ? `${opt.bg} ${opt.border} ring-2 ring-offset-1 ring-offset-background`
                         : 'border-border bg-card hover:border-muted-foreground/20'
                     }`}
-                    style={selectedDays === opt.days ? { ringColor: opt.color } : {}}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <span className={`text-[20px] font-heading font-bold ${opt.color}`}>{opt.days}</span>
