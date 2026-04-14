@@ -2,56 +2,51 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    --background: 250 20% 98%;
-    --foreground: 250 30% 12%;
+    --background: 220 14% 96%;
+    --foreground: 220 20% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 250 30% 12%;
+    --card-foreground: 220 20% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 250 30% 12%;
+    --popover-foreground: 220 20% 14%;
 
-    --primary: 262 83% 58%;
+    --primary: 234 62% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 250 20% 95%;
-    --secondary-foreground: 250 30% 12%;
+    --secondary: 220 14% 92%;
+    --secondary-foreground: 220 20% 14%;
 
-    --muted: 250 15% 93%;
-    --muted-foreground: 250 10% 50%;
+    --muted: 220 12% 94%;
+    --muted-foreground: 220 8% 52%;
 
-    --accent: 262 70% 95%;
-    --accent-foreground: 262 83% 45%;
+    --accent: 234 55% 96%;
+    --accent-foreground: 234 62% 42%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 250 15% 90%;
-    --input: 250 15% 90%;
-    --ring: 262 83% 58%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 234 62% 50%;
 
-    --radius: 1rem;
+    --radius: 0.75rem;
 
-    /* Custom tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%), hsl(280, 90%, 65%));
-    --gradient-hero: linear-gradient(135deg, hsl(262, 83%, 58%), hsl(310, 80%, 60%));
-    --gradient-green: linear-gradient(135deg, hsl(152, 68%, 45%), hsl(170, 70%, 50%));
-    --gradient-orange: linear-gradient(135deg, hsl(25, 95%, 55%), hsl(40, 90%, 55%));
-    --gradient-blue: linear-gradient(135deg, hsl(220, 90%, 56%), hsl(240, 80%, 65%));
+    /* Semantic course colors — muted, professional */
+    --course-indigo: 234 62% 50%;
+    --course-emerald: 160 60% 40%;
+    --course-amber: 32 90% 50%;
+    --course-sky: 200 80% 46%;
 
-    --shadow-card: 0 4px 20px -4px hsl(262 83% 58% / 0.1);
-    --shadow-elevated: 0 8px 30px -8px hsl(262 83% 58% / 0.15);
+    --streak: 38 92% 50%;
+    --success: 160 60% 40%;
 
-    --course-purple: 262 83% 58%;
-    --course-green: 152 68% 45%;
-    --course-orange: 25 95% 55%;
-    --course-blue: 220 90% 56%;
-
-    --streak: 40 95% 50%;
+    --font-heading: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -69,58 +64,101 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
   }
 }
 
-@layer utilities {
-  .gradient-primary {
-    background: var(--gradient-primary);
+@layer components {
+  .card-elevated {
+    @apply bg-card rounded-2xl border border-border/60;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.03);
   }
-  .gradient-hero {
-    background: var(--gradient-hero);
+  .card-elevated-hover {
+    @apply card-elevated transition-all duration-200;
   }
-  .gradient-green {
-    background: var(--gradient-green);
+  .card-elevated-hover:hover {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.06), 0 2px 4px -2px rgb(0 0 0 / 0.04);
+    transform: translateY(-1px);
   }
-  .gradient-orange {
-    background: var(--gradient-orange);
+  .badge-status {
+    @apply text-xs font-semibold px-2.5 py-1 rounded-md;
   }
-  .gradient-blue {
-    background: var(--gradient-blue);
+  .badge-live {
+    @apply badge-status;
+    background: hsl(160 60% 40% / 0.1);
+    color: hsl(var(--success));
   }
-  .shadow-card {
-    box-shadow: var(--shadow-card);
+  .badge-premium {
+    @apply badge-status;
+    background: hsl(38 92% 50% / 0.1);
+    color: hsl(var(--streak));
   }
-  .shadow-elevated {
-    box-shadow: var(--shadow-elevated);
+  .header-section {
+    @apply px-5 pt-14 pb-8;
+    background: linear-gradient(135deg, hsl(234, 62%, 50%), hsl(234, 55%, 42%));
+  }
+  .btn-primary {
+    @apply w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all duration-200;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .btn-primary:hover {
+    background: hsl(234, 62%, 45%);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
+  }
+  .btn-secondary-light {
+    @apply w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all;
+    background: hsl(0 0% 100% / 0.15);
+    backdrop-filter: blur(8px);
+    color: hsl(var(--primary-foreground));
+  }
+  .input-field {
+    @apply w-full px-4 py-3.5 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground outline-none transition-all text-sm;
+  }
+  .input-field:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 3px hsl(234 62% 50% / 0.1);
+  }
+  .progress-track {
+    @apply w-full h-1.5 rounded-full;
+    background: hsl(var(--muted));
+  }
+  .progress-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+    background: hsl(var(--primary));
+  }
+  .progress-fill-light {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+    background: hsl(0 0% 100% / 0.85);
+  }
+  .stat-icon {
+    @apply w-10 h-10 rounded-xl flex items-center justify-center;
+  }
+  .course-dot {
+    @apply w-2.5 h-2.5 rounded-full;
   }
 }
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
+  from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes slide-in-right {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
 .animate-fade-in-up {
-  animation: fade-in-up 0.5s ease-out forwards;
+  animation: fade-in-up 0.4s ease-out both;
 }
 
 .animate-scale-in {
-  animation: scale-in 0.3s ease-out forwards;
-}
-
-.animate-slide-in-right {
-  animation: slide-in-right 0.4s ease-out forwards;
+  animation: scale-in 0.3s ease-out both;
 }

@@ -8,13 +8,12 @@ export default {
     container: {
       center: true,
       padding: "1rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      screens: { "2xl": "1400px" },
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['DM Sans', 'sans-serif'],
+        heading: ['Plus Jakarta Sans', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -51,10 +50,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         streak: "hsl(var(--streak))",
-        "course-purple": "hsl(var(--course-purple))",
-        "course-green": "hsl(var(--course-green))",
-        "course-orange": "hsl(var(--course-orange))",
-        "course-blue": "hsl(var(--course-blue))",
+        success: "hsl(var(--success))",
+        "course-indigo": "hsl(var(--course-indigo))",
+        "course-emerald": "hsl(var(--course-emerald))",
+        "course-amber": "hsl(var(--course-amber))",
+        "course-sky": "hsl(var(--course-sky))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
