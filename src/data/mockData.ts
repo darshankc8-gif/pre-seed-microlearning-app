@@ -1,4 +1,4 @@
-import { User, Course, Module, Quiz, RevenueData } from '@/types';
+import { User, Course, Module, Quiz, RevenueData, StreakBet } from '@/types';
 
 export const mockLearner: User = {
   id: '1',
@@ -7,6 +7,7 @@ export const mockLearner: User = {
   streak: 12,
   coursesCompleted: 5,
   isPremium: false,
+  points: 1250,
 };
 
 export const mockCreator: User = {
@@ -16,7 +17,13 @@ export const mockCreator: User = {
   streak: 0,
   coursesCompleted: 0,
   isPremium: true,
+  points: 0,
 };
+
+export const mockBets: StreakBet[] = [
+  { id: 'b1', targetDays: 7, pointsWagered: 100, multiplier: 2, startDate: '2026-04-07', daysCompleted: 7, status: 'won' },
+  { id: 'b2', targetDays: 14, pointsWagered: 200, multiplier: 3, startDate: '2026-04-01', daysCompleted: 10, status: 'lost' },
+];
 
 export const mockCourses: Course[] = [
   {
