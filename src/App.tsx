@@ -12,6 +12,7 @@ import CourseDetail from "./pages/CourseDetail";
 import VideoModule from "./pages/VideoModule";
 import QuizPage from "./pages/QuizPage";
 import ProgressDashboard from "./pages/ProgressDashboard";
+import MysteryReward from "./pages/MysteryReward";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const AppRoutes = () => {
       <Route path="/module/:id" element={<ProtectedRoute><VideoModule /></ProtectedRoute>} />
       <Route path="/quiz/:id" element={<ProtectedRoute><QuizPage /></ProtectedRoute>} />
       <Route path="/progress" element={<ProtectedRoute><ProgressDashboard /></ProtectedRoute>} />
+      <Route path="/reward/:courseId" element={<ProtectedRoute><MysteryReward /></ProtectedRoute>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
