@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useProgress } from '@/contexts/ProgressContext';
-import { ArrowLeft, Clock, CheckCircle2, PlayCircle, Lock, HelpCircle, Crown } from 'lucide-react';
+import { ArrowLeft, Clock, CheckCircle2, PlayCircle, Lock, HelpCircle, Crown, Gift } from 'lucide-react';
 
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,11 +46,15 @@ const CourseDetail = () => {
           </div>
         </div>
 
-        {currentModule && (
+        {course.progress === 100 ? (
+          <button onClick={() => navigate(`/reward/${course.id}`)} className="w-full py-3.5 rounded-xl bg-gradient-to-r from-streak to-course-amber text-primary-foreground font-heading font-bold text-[13px] flex items-center justify-center gap-2 hover:opacity-90 transition-opacity animate-scale-in">
+            <Gift className="w-[18px] h-[18px]" /> Claim Mystery Reward 🎁
+          </button>
+        ) : currentModule ? (
           <button onClick={() => navigate(`/module/${currentModule.id}`)} className="w-full py-3.5 rounded-xl bg-primary-foreground text-primary font-heading font-bold text-[13px] flex items-center justify-center gap-2 hover:bg-primary-foreground/95 transition-colors">
             <PlayCircle className="w-[18px] h-[18px]" /> Continue Learning
           </button>
-        )}
+        ) : null}
       </div>
 
       {/* Module List */}
