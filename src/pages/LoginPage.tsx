@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import { BookOpen, Sparkles } from 'lucide-react';
+import { BookOpen, ArrowRight } from 'lucide-react';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -13,86 +13,59 @@ const LoginPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username || !password) {
-      setError('Please fill in all fields');
-      return;
-    }
+    if (!username || !password) { setError('Please fill in all fields'); return; }
     const success = login(username, password, role);
-    if (success) {
-      navigate(role === 'learner' ? '/dashboard' : '/creator');
-    } else {
-      setError('Login failed');
-    }
+    if (success) navigate(role === 'learner' ? '/dashboard' : '/creator');
+    else setError('Login failed');
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-background">
-      <div className="w-full max-w-sm animate-fade-in-up">
-        {/* Logo */}
-        <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center mb-4 shadow-elevated">
-            <BookOpen className="w-8 h-8 text-primary-foreground" />
+    <div className="min-h-screen flex flex-col items-center justify-center px-5 bg-background">
+      <div className="w-full max-w-[380px] animate-fade-in-up">
+        {/* Brand */}
+        <div className="flex flex-col items-center mb-10">
+          <div className="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center mb-4">
+            <BookOpen className="w-7 h-7 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold text-foreground">MicroLearn</h1>
-          <p className="text-muted-foreground text-sm mt-1">Learn in bite-sized lessons</p>
+          <h1 className="text-[22px] font-heading font-bold text-foreground tracking-tight">MicroLearn</h1>
+          <p className="text-muted-foreground text-[13px] mt-1">Bite-sized learning, real results</p>
         </div>
 
         {/* Role Toggle */}
-        <div className="flex rounded-xl bg-secondary p-1 mb-6">
-          <button
-            onClick={() => setRole('learner')}
-            className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-              role === 'learner'
-                ? 'bg-card shadow-card text-foreground'
-                : 'text-muted-foreground'
-            }`}
-          >
-            🎓 Learner
-          </button>
-          <button
-            onClick={() => setRole('creator')}
-            className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-              role === 'creator'
-                ? 'bg-card shadow-card text-foreground'
-                : 'text-muted-foreground'
-            }`}
-          >
-            ✨ Creator
-          </button>
+        <div className="flex rounded-xl bg-card border border-border p-1 mb-7">
+          {(['learner', 'creator'] as const).map(r => (
+            <button
+              key={r}
+              onClick={() => setRole(r)}
+              className={`flex-1 py-2.5 rounded-[10px] text-[13px] font-semibold transition-all duration-200 ${
+                role === r
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {r === 'learner' ? 'Learner' : 'Creator'}
+            </button>
+          ))}
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3.5 rounded-xl bg-secondary text-foreground placeholder:text-muted-foreground border-none outline-none focus:ring-2 focus:ring-primary transition-all text-sm"
-            />
+            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Username</label>
+            <input type="text" value={username} onChange={e => setUsername(e.target.value)} className="input-field" placeholder="Enter your username" />
           </div>
           <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3.5 rounded-xl bg-secondary text-foreground placeholder:text-muted-foreground border-none outline-none focus:ring-2 focus:ring-primary transition-all text-sm"
-            />
+            <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Password</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="input-field" placeholder="Enter your password" />
           </div>
-          {error && <p className="text-destructive text-xs text-center">{error}</p>}
-          <button
-            type="submit"
-            className="w-full py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold text-sm shadow-elevated hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-          >
-            <Sparkles className="w-4 h-4" />
-            Sign In as {role === 'learner' ? 'Learner' : 'Creator'}
+          {error && <p className="text-destructive text-xs">{error}</p>}
+          <button type="submit" className="btn-primary mt-2">
+            Continue <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
-        <p className="text-center text-xs text-muted-foreground mt-6">
-          Enter any username & password to explore
+        <p className="text-center text-[11px] text-muted-foreground mt-8">
+          Enter any username & password to explore the platform
         </p>
       </div>
     </div>
