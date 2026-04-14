@@ -17,96 +17,89 @@ const CourseDetail = () => {
 
   return (
     <div className="min-h-screen bg-background pb-8">
-      {/* Gradient Header */}
-      <div className="gradient-hero px-5 pt-12 pb-10 rounded-b-[2rem]">
-        <button onClick={() => navigate('/dashboard')} className="mb-4 w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-          <ArrowLeft className="w-5 h-5 text-primary-foreground" />
+      {/* Header */}
+      <div className="header-section rounded-b-[1.75rem]">
+        <button onClick={() => navigate('/dashboard')} className="mb-5 w-9 h-9 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/15 transition-colors">
+          <ArrowLeft className="w-[18px] h-[18px] text-primary-foreground/80" />
         </button>
-        <h1 className="text-2xl font-bold text-primary-foreground mb-1">{course.title}</h1>
-        <p className="text-sm text-primary-foreground/70 mb-4">{course.description}</p>
+        <h1 className="text-[22px] font-heading font-bold text-primary-foreground mb-1">{course.title}</h1>
+        <p className="text-[13px] text-primary-foreground/60 mb-5 leading-relaxed">{course.description}</p>
 
-        <div className="flex gap-4 mb-4">
-          <div className="flex items-center gap-1.5 text-primary-foreground/80 text-sm">
-            <CheckCircle2 className="w-4 h-4" />
-            {course.completedModules}/{course.modulesCount} modules
+        <div className="flex gap-5 mb-5 text-[13px]">
+          <div className="flex items-center gap-1.5 text-primary-foreground/70">
+            <CheckCircle2 className="w-3.5 h-3.5" />
+            <span>{course.completedModules}/{course.modulesCount} modules</span>
           </div>
-          <div className="flex items-center gap-1.5 text-primary-foreground/80 text-sm">
-            <Clock className="w-4 h-4" />
-            {course.timeLeft} left
+          <div className="flex items-center gap-1.5 text-primary-foreground/70">
+            <Clock className="w-3.5 h-3.5" />
+            <span>{course.timeLeft} left</span>
           </div>
         </div>
 
-        {/* Progress */}
-        <div className="mb-4">
-          <div className="flex justify-between text-sm text-primary-foreground mb-1">
+        <div className="mb-5">
+          <div className="flex justify-between text-[12px] text-primary-foreground/80 mb-1.5">
             <span>Progress</span>
             <span className="font-bold">{course.progress}%</span>
           </div>
-          <div className="w-full h-3 rounded-full bg-primary-foreground/20">
-            <div className="h-full rounded-full bg-primary-foreground transition-all duration-500" style={{ width: `${course.progress}%` }} />
+          <div className="w-full h-2 rounded-full bg-primary-foreground/15">
+            <div className="progress-fill-light" style={{ width: `${course.progress}%` }} />
           </div>
         </div>
 
         {currentModule && (
-          <button
-            onClick={() => navigate(`/module/${currentModule.id}`)}
-            className="w-full py-3.5 rounded-xl bg-primary-foreground text-primary font-semibold text-sm flex items-center justify-center gap-2 shadow-elevated"
-          >
-            <PlayCircle className="w-5 h-5" /> Continue Learning
+          <button onClick={() => navigate(`/module/${currentModule.id}`)} className="w-full py-3.5 rounded-xl bg-primary-foreground text-primary font-heading font-bold text-[13px] flex items-center justify-center gap-2 hover:bg-primary-foreground/95 transition-colors">
+            <PlayCircle className="w-[18px] h-[18px]" /> Continue Learning
           </button>
         )}
       </div>
 
       {/* Module List */}
-      <div className="px-5 -mt-4">
-        <h2 className="text-lg font-bold text-foreground mb-4 mt-6">Modules</h2>
-        <div className="space-y-3">
-          {modules.map((mod, i) => (
-            <button
-              key={mod.id}
-              onClick={() => {
-                if (mod.status !== 'locked') {
-                  if (mod.status === 'quiz' || mod.title.includes('Quiz')) {
-                    navigate(`/quiz/${mod.id}`);
-                  } else {
-                    navigate(`/module/${mod.id}`);
-                  }
-                }
-              }}
-              disabled={mod.status === 'locked'}
-              className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all animate-fade-in-up ${
-                mod.status === 'current'
-                  ? 'bg-accent border-2 border-primary shadow-card'
-                  : mod.status === 'locked'
-                  ? 'bg-muted opacity-60'
-                  : 'bg-card shadow-card'
-              }`}
-              style={{ animationDelay: `${i * 0.05}s` }}
-            >
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                mod.status === 'completed' ? 'gradient-green' :
-                mod.status === 'current' ? 'gradient-primary' :
-                mod.status === 'quiz' ? 'gradient-orange' :
-                'bg-muted'
-              }`}>
-                {mod.status === 'completed' && <CheckCircle2 className="w-5 h-5 text-primary-foreground" />}
-                {mod.status === 'current' && <PlayCircle className="w-5 h-5 text-primary-foreground" />}
-                {mod.status === 'quiz' && <HelpCircle className="w-5 h-5 text-primary-foreground" />}
-                {mod.status === 'locked' && (mod.isPremium ? <Crown className="w-5 h-5 text-muted-foreground" /> : <Lock className="w-5 h-5 text-muted-foreground" />)}
-              </div>
-              <div className="flex-1 text-left min-w-0">
-                <p className={`font-semibold text-sm truncate ${mod.status === 'locked' ? 'text-muted-foreground' : 'text-foreground'}`}>
-                  {mod.title}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {mod.isPremium && mod.status === 'locked' ? '🔒 Premium' : mod.duration}
-                </p>
-              </div>
-              {mod.status === 'current' && (
-                <span className="text-xs font-semibold text-primary bg-accent px-2 py-1 rounded-lg">▶ Now</span>
-              )}
-            </button>
-          ))}
+      <div className="px-5 pt-5">
+        <h2 className="text-[15px] font-heading font-bold text-foreground mb-4">Modules</h2>
+        <div className="space-y-2.5">
+          {modules.map((mod, i) => {
+            const isCurrent = mod.status === 'current';
+            const isLocked = mod.status === 'locked';
+            const isCompleted = mod.status === 'completed';
+            const isQuiz = mod.status === 'quiz' || mod.title.includes('Quiz');
+
+            return (
+              <button
+                key={mod.id}
+                onClick={() => {
+                  if (!isLocked) navigate(isQuiz ? `/quiz/${mod.id}` : `/module/${mod.id}`);
+                }}
+                disabled={isLocked}
+                className={`w-full flex items-center gap-3.5 p-3.5 rounded-xl transition-all animate-fade-in-up ${
+                  isCurrent ? 'card-elevated border-primary/30 ring-1 ring-primary/10' :
+                  isLocked ? 'bg-muted/50 opacity-50' :
+                  'card-elevated'
+                }`}
+                style={{ animationDelay: `${i * 0.04}s` }}
+              >
+                <div className={`w-9 h-9 rounded-[10px] flex items-center justify-center flex-shrink-0 ${
+                  isCompleted ? 'bg-success/10' :
+                  isCurrent ? 'bg-primary/10' :
+                  isQuiz && !isLocked ? 'bg-course-amber/10' :
+                  'bg-muted'
+                }`}>
+                  {isCompleted && <CheckCircle2 className="w-[18px] h-[18px] text-success" />}
+                  {isCurrent && <PlayCircle className="w-[18px] h-[18px] text-primary" />}
+                  {isQuiz && !isCompleted && !isCurrent && !isLocked && <HelpCircle className="w-[18px] h-[18px] text-course-amber" />}
+                  {isLocked && (mod.isPremium ? <Crown className="w-[18px] h-[18px] text-muted-foreground/50" /> : <Lock className="w-[18px] h-[18px] text-muted-foreground/50" />)}
+                </div>
+                <div className="flex-1 text-left min-w-0">
+                  <p className={`font-medium text-[13px] truncate ${isLocked ? 'text-muted-foreground' : 'text-foreground'}`}>{mod.title}</p>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    {mod.isPremium && isLocked ? 'Premium content' : mod.duration}
+                  </p>
+                </div>
+                {isCurrent && (
+                  <span className="text-[11px] font-semibold text-primary bg-accent px-2 py-0.5 rounded-md">Now</span>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>

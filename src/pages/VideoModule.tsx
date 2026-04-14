@@ -12,24 +12,16 @@ const VideoModule = () => {
 
   const mod = modules.find(m => m.id === id);
   if (!mod) return <div className="p-8 text-center text-muted-foreground">Module not found</div>;
-
   const course = getCourse(mod.courseId);
 
-  const handleComplete = () => {
-    completeModule(mod.id);
-    setCompleted(true);
-  };
+  const handleComplete = () => { completeModule(mod.id); setCompleted(true); };
 
   const handleNext = () => {
     const courseModules = modules.filter(m => m.courseId === mod.courseId);
     const idx = courseModules.findIndex(m => m.id === mod.id);
     if (idx < courseModules.length - 1) {
       const next = courseModules[idx + 1];
-      if (next.title.includes('Quiz') || next.status === 'quiz') {
-        navigate(`/quiz/${next.id}`);
-      } else {
-        navigate(`/module/${next.id}`);
-      }
+      navigate(next.title.includes('Quiz') || next.status === 'quiz' ? `/quiz/${next.id}` : `/module/${next.id}`);
     } else {
       navigate(`/course/${mod.courseId}`);
     }
@@ -37,52 +29,35 @@ const VideoModule = () => {
 
   return (
     <div className="min-h-screen bg-foreground flex flex-col">
-      {/* Top Bar */}
-      <div className="flex items-center gap-3 px-4 py-3">
-        <button onClick={() => navigate(`/course/${mod.courseId}`)} className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center">
-          <ArrowLeft className="w-5 h-5 text-primary-foreground" />
+      <div className="flex items-center gap-3 px-4 py-3 bg-foreground">
+        <button onClick={() => navigate(`/course/${mod.courseId}`)} className="w-9 h-9 rounded-xl bg-primary-foreground/8 flex items-center justify-center">
+          <ArrowLeft className="w-[18px] h-[18px] text-primary-foreground/70" />
         </button>
         <div className="flex-1 min-w-0">
-          <p className="text-primary-foreground font-semibold text-sm truncate">{mod.title}</p>
-          <p className="text-primary-foreground/50 text-xs">{course?.title}</p>
+          <p className="text-primary-foreground font-heading font-semibold text-[13px] truncate">{mod.title}</p>
+          <p className="text-primary-foreground/40 text-[11px]">{course?.title}</p>
         </div>
       </div>
 
-      {/* Video */}
-      <div className="flex-1 flex items-center justify-center bg-foreground">
-        <video
-          ref={videoRef}
-          src={mod.videoUrl}
-          controls
-          className="w-full max-h-[60vh] object-contain"
-          onEnded={handleComplete}
-        />
+      <div className="flex-1 flex items-center justify-center">
+        <video ref={videoRef} src={mod.videoUrl} controls className="w-full max-h-[60vh] object-contain" onEnded={handleComplete} />
       </div>
 
-      {/* Bottom Actions */}
-      <div className="p-5 bg-background rounded-t-[2rem]">
-        <h2 className="font-bold text-lg text-foreground mb-1">{mod.title}</h2>
-        <p className="text-sm text-muted-foreground mb-4">{mod.duration} • {course?.title}</p>
+      <div className="p-5 bg-background rounded-t-[1.75rem]">
+        <h2 className="font-heading font-bold text-[17px] text-foreground mb-0.5">{mod.title}</h2>
+        <p className="text-[13px] text-muted-foreground mb-5">{mod.duration} · {course?.title}</p>
 
         {completed ? (
           <div className="space-y-3 animate-scale-in">
-            <div className="flex items-center gap-2 text-course-green font-semibold">
-              <CheckCircle2 className="w-5 h-5" /> Module Completed!
+            <div className="flex items-center gap-2 text-success font-semibold text-[13px]">
+              <CheckCircle2 className="w-[18px] h-[18px]" /> Module completed
             </div>
-            <button
-              onClick={handleNext}
-              className="w-full py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2"
-            >
+            <button onClick={handleNext} className="btn-primary">
               <SkipForward className="w-4 h-4" /> Next Module
             </button>
           </div>
         ) : (
-          <button
-            onClick={handleComplete}
-            className="w-full py-3.5 rounded-xl gradient-primary text-primary-foreground font-semibold text-sm"
-          >
-            Mark as Complete
-          </button>
+          <button onClick={handleComplete} className="btn-primary">Mark as Complete</button>
         )}
       </div>
     </div>
