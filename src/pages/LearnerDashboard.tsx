@@ -48,15 +48,15 @@ const LearnerDashboard = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-5">
-          <div className="bg-primary-foreground/10 rounded-2xl p-3.5 flex items-center gap-3">
+          <button onClick={() => navigate('/streak-bet')} className="bg-primary-foreground/10 rounded-2xl p-3.5 flex items-center gap-3 hover:bg-primary-foreground/15 transition-colors text-left">
             <div className="stat-icon bg-primary-foreground/10">
               <Flame className="w-[18px] h-[18px] text-streak" />
             </div>
             <div>
               <p className="text-[20px] font-heading font-bold text-primary-foreground leading-none">{user?.streak}</p>
-              <p className="text-[11px] text-primary-foreground/50 mt-0.5">Day streak</p>
+              <p className="text-[11px] text-primary-foreground/50 mt-0.5">Day streak 🎰</p>
             </div>
-          </div>
+          </button>
           <div className="bg-primary-foreground/10 rounded-2xl p-3.5 flex items-center gap-3">
             <div className="stat-icon bg-primary-foreground/10">
               <Trophy className="w-[18px] h-[18px] text-primary-foreground/80" />

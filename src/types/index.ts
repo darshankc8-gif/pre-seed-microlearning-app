@@ -5,6 +5,17 @@ export interface User {
   streak: number;
   coursesCompleted: number;
   isPremium: boolean;
+  points: number;
+}
+
+export interface StreakBet {
+  id: string;
+  targetDays: number;
+  pointsWagered: number;
+  multiplier: number;
+  startDate: string;
+  daysCompleted: number;
+  status: 'active' | 'won' | 'lost';
 }
 
 export interface Course {
