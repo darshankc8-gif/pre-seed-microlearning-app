@@ -14,6 +14,7 @@ import QuizPage from "./pages/QuizPage";
 import ProgressDashboard from "./pages/ProgressDashboard";
 import MysteryReward from "./pages/MysteryReward";
 import StreakBetting from "./pages/StreakBetting";
+import CareerRoadmap from "./pages/CareerRoadmap";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ const AppRoutes = () => {
       <Route path="/progress" element={<ProtectedRoute><ProgressDashboard /></ProtectedRoute>} />
       <Route path="/reward/:courseId" element={<ProtectedRoute><MysteryReward /></ProtectedRoute>} />
       <Route path="/streak-bet" element={<ProtectedRoute><StreakBetting /></ProtectedRoute>} />
+      <Route path="/roadmap" element={<ProtectedRoute><CareerRoadmap /></ProtectedRoute>} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

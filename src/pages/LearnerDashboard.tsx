@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProgress } from '@/contexts/ProgressContext';
-import { Search, Flame, Trophy, Crown, LogOut, ChevronRight, BarChart3 } from 'lucide-react';
+import { Search, Flame, Trophy, Crown, LogOut, ChevronRight, BarChart3, Map } from 'lucide-react';
 
 const colorBg: Record<string, string> = {
   purple: 'bg-course-indigo',
@@ -70,7 +70,10 @@ const LearnerDashboard = () => {
 
         <div className="flex gap-2">
           <button onClick={() => navigate('/progress')} className="btn-secondary-light text-[13px] flex-1">
-            <BarChart3 className="w-4 h-4" /> Progress Tracker
+            <BarChart3 className="w-4 h-4" /> Progress
+          </button>
+          <button onClick={() => navigate('/roadmap')} className="btn-secondary-light text-[13px] flex-1">
+            <Map className="w-4 h-4" /> Roadmap
           </button>
           {!user?.isPremium && (
             <button className="btn-secondary-light text-[13px] flex-1">
