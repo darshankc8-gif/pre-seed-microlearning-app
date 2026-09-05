@@ -93,7 +93,7 @@ npm run build
 
 ## Author
 
-* Your Name
+Darshan KC
 
 ---
 
